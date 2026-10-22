@@ -52,6 +52,21 @@ def todaycard(lang):
 <p class="fine">{t["hoursfine"]}</p></aside>'''
 def weekgrid(lang):
   return '<ul class="week-grid" role="list">'+''.join(f'<li data-day="{i}"{" class=off" if not HOURS[i][1] else ""}><b>{T[lang]["short"][i]}</b><span>{rng(i,lang).replace(" – ","<br>– ")}</span></li>' for i in range(7))+'</ul>'
+def hourscard(lang):
+  t=T[lang]; en=lang=='en'
+  return f'''<div class="hours-card"><div class="today-head"><h3>{t["hourshead"]}</h3><span class="status" data-status>{t["hourshead"]}</span></div><p class="next" data-next></p>{weekgrid(lang)}<p class="fine">{t["hoursfine"]} {need(lang,"confirm opening times; Google lists 9:15" if en else "confirmar hora de apertura; Google indica 9:15")}</p></div>'''
+VINE='<svg class="vine" viewBox="0 0 240 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 30c40 10 80 8 120 30s70 50 95 52"/><path d="M70 41c-6-14 2-24 10-26M110 52c4-16 16-22 26-20M150 70c-2 14 6 24 16 26M190 92c10-10 22-10 30-4"/><g fill="currentColor"><circle cx="80" cy="15" r="5"/><circle cx="136" cy="32" r="5"/><circle cx="166" cy="96" r="5"/><circle cx="220" cy="88" r="4.5"/></g></svg>'
+def pic(n,alt,cls='',eager=False):
+  ld='' if eager else ' loading="lazy"'
+  return f'<picture class="{cls}"><source type="image/avif" srcset="../assets/img/{n}-640.avif 640w, ../assets/img/{n}-1024.avif 1024w" sizes="(max-width:700px) 100vw, 60vw"><source type="image/webp" srcset="../assets/img/{n}-640.webp 640w, ../assets/img/{n}-1024.webp 1024w" sizes="(max-width:700px) 100vw, 60vw"><img src="../assets/img/{n}-1024.webp" width="1024" height="{576 if n=="corner" else 768}" alt="{alt}"{ld} decoding="async"></picture>'
+def illus(lang): return '<span class="illus">'+('Illustrative scene' if lang=='en' else 'Escena ilustrativa')+'</span>'
+def shelf(lang):
+  en=lang=='en'
+  cards=[f'<article class="shelf-card photo-card">{pic("room","" )}{illus(lang)}<div class="pc-cap"><b>{"Everything in one office." if en else "Todo en una sola oficina."}</b><span>{"Generic treatment room, not our office." if en else "Sala genérica, no es nuestra oficina."}</span></div></article>']
+  for ic,h,p,li in SERV[lang]:
+    for j in range(0,len(li),4):
+      cards.append(f'<article class="shelf-card"><span class="sc-eb">{h}</span><h3>{p if j==0 else ("More " if en else "Más: ")+h.lower()}</h3><ul role="list">{"".join(f"<li>{x}</li>" for x in li[j:j+4])}</ul></article>')
+  return '<div class="shelf" tabindex="0" role="region" aria-label="'+('Services' if en else 'Servicios')+'">'+''.join(cards)+'</div>'
 def mapblock(lang):
   t=T[lang]
   return f'''<div class="map-wrap" data-map="{html.escape(EMBED)}" data-title="{'Mapa de Boyle Heights Dental Care' if lang=='es' else 'Map of Boyle Heights Dental Care'}"><div class="map-ph">{ART.replace('window-art','map-art')}<div><button type="button" class="btn btn-ghost btn-sm" data-load-map>{I["pin"]}{t["showmap"]}</button><p class="muted small">{t["mapnote"]}</p></div></div></div>'''
@@ -184,19 +199,18 @@ def home(lang):
 <section class="band" aria-label="{'New patient special' if en else 'Especial para pacientes nuevos'}"><div class="wrap">
 <p><strong>$50</strong> {"new patient exam &amp; X-rays." if en else "examen y radiografías para pacientes nuevos."} <span class="terms">{need(lang,NEEDS[lang][0])}</span></p>
 {callbtn(lang,'btn btn-accent btn-sm','band',False)}</div></section>
-<section class="section" aria-labelledby="first"><div class="wrap">
-<div class="section-head"><div><span class="eyebrow">{"First visit" if en else "Primera visita"}</span><h2 id="first">{"Three steps. No surprises." if en else "Tres pasos. Sin sorpresas."}</h2></div><p>{"We listen first, then explain what we see and what it costs before any treatment starts." if en else "Primero le escuchamos. Luego le explicamos lo que vemos y lo que cuesta, antes de empezar cualquier tratamiento."}</p></div>
-<ol class="steps">
-<li data-reveal><h3>{"Call us" if en else "Llámenos"}</h3><p>{"Pick a time that works. We answer in English or Spanish." if en else "Escoja un horario que le funcione. Le atendemos en español o inglés."}</p></li>
-<li data-reveal><h3>{"Exam &amp; X-rays" if en else "Examen y radiografías"}</h3><p>{"Dr. Song checks your teeth and gums and takes the X-rays he needs." if en else "El Dr. Song revisa sus dientes y encías y toma las radiografías necesarias."}</p></li>
-<li data-reveal><h3>{"Your plan &amp; price" if en else "Su plan y su precio"}</h3><p>{"You leave knowing what you need, what it costs and what insurance covers." if en else "Usted sale sabiendo qué necesita, cuánto cuesta y qué cubre su seguro."}</p></li>
+<section class="section tone-gold" aria-labelledby="first">{VINE}<div class="wrap">
+<div class="section-head"><h2 id="first" class="two-tone">{"Three steps." if en else "Tres pasos."} <span>{"No surprises." if en else "Sin sorpresas."}</span></h2><p>{"We listen first, then explain what we see and what it costs before any treatment starts." if en else "Primero le escuchamos. Luego le explicamos lo que vemos y lo que cuesta, antes de empezar cualquier tratamiento."}</p></div>
+<ol class="steps big">
+<li data-reveal><span class="num">01</span><h3>{"Call us" if en else "Llámenos"}</h3><p>{"Pick a time that works. We answer in English or Spanish." if en else "Escoja un horario que le funcione. Le atendemos en español o inglés."}</p></li>
+<li data-reveal><span class="num">02</span><h3>{"Exam &amp; X-rays" if en else "Examen y radiografías"}</h3><p>{"Dr. Song checks your teeth and gums and takes the X-rays he needs." if en else "El Dr. Song revisa sus dientes y encías y toma las radiografías necesarias."}</p></li>
+<li data-reveal><span class="num">03</span><h3>{"Your plan &amp; price" if en else "Su plan y su precio"}</h3><p>{"You leave knowing what you need, what it costs and what insurance covers." if en else "Usted sale sabiendo qué necesita, cuánto cuesta y qué cubre su seguro."}</p></li>
 </ol>
-<div class="cta-after">{callbtn(lang,'btn btn-accent','steps')}</div>
 </div></section>
-<section class="section alt" aria-labelledby="svc"><div class="wrap">
-<div class="section-head"><div><span class="eyebrow">{"Services" if en else "Servicios"}</span><h2 id="svc">{"From a cleaning to a full set of implant dentures." if en else "Desde una limpieza hasta dentaduras sobre implantes."}</h2></div><p>{"Everything below is done here, in our office on Cesar Chavez Ave." if en else "Todo esto lo hacemos aquí, en nuestra oficina de la Cesar Chavez."} <a href="{url('services',lang,d)}">{"See all services" if en else "Ver todos los servicios"}</a></p></div>
-{svcgrid(lang)}
-</div></section>
+<section class="section tone-purple" aria-labelledby="svc">{VINE}<div class="wrap">
+<div class="section-head"><h2 id="svc" class="two-tone">{"Our services." if en else "Nuestros servicios."} <span>{"Cleanings to implants, on Cesar Chavez." if en else "De limpiezas a implantes, en la Cesar Chavez."}</span></h2><p>{"All done here, in our office on Cesar Chavez Ave." if en else "Todo aquí, en nuestra oficina de la Cesar Chavez."} <a href="{url('services',lang,d)}">{"See all services" if en else "Ver todos los servicios"} →</a></p></div></div>
+{shelf(lang)}
+</section>
 <section class="section" aria-labelledby="doc"><div class="wrap split">
 <div class="doc" data-reveal><div class="monogram" aria-hidden="true">ES</div><div>
 <span class="eyebrow">{"Your dentist" if en else "Su dentista"}</span>
@@ -206,18 +220,18 @@ def home(lang):
 </div></div>
 <figure class="photo" data-reveal><picture><source srcset="../assets/img/storefront-2206.webp" type="image/webp"><img src="../assets/img/storefront-2206.jpg" width="640" height="480" loading="lazy" decoding="async" alt="{'Storefront of Boyle Heights Dental Care at 2206 E Cesar E Chavez Ave, with a DENTIST sign and bilingual window lettering' if en else 'Fachada de Boyle Heights Dental Care en 2206 E Cesar E Chavez Ave, con el letrero DENTIST y letreros bilingües en las ventanas'}"></picture></figure>
 </div></section>
-<section class="section alt" aria-labelledby="wk"><div class="wrap">
-<div class="section-head"><div><span class="eyebrow">{t['hourshead']}</span><h2 id="wk">{"Tuesdays we open at 1. Thursdays we’re closed." if en else "Martes abrimos a la 1. Los jueves cerramos."}</h2></div><p>{"Saturday mornings too, for the week you can’t get away." if en else "También sábados por la mañana, para las semanas en que no puede salir del trabajo."}</p></div>
-{weekgrid(lang)}
-<div class="cta-after">{callbtn(lang,'btn btn-accent','week')}</div>
+<section class="section tone-gold" aria-labelledby="wk">{VINE}<div class="wrap split hours-split">
+<div><h2 id="wk" class="two-tone">{"Tuesdays we open at 1." if en else "Martes abrimos a la 1."} <span>{"Thursdays we’re closed." if en else "Los jueves cerramos."}</span></h2><p>{"Saturday mornings too, for the week you can’t get away." if en else "También sábados por la mañana, para las semanas en que no puede salir del trabajo."}</p>{callbtn(lang,'btn btn-dark','week')}</div>
+{hourscard(lang)}
 </div></section>
-<section class="section" aria-labelledby="loc"><div class="wrap split">
-<div data-reveal><span class="eyebrow">{"Find us" if en else "Encuéntrenos"}</span><h2 id="loc">{"On Cesar Chavez Ave, in the heart of Boyle Heights." if en else "En la Cesar Chavez, en el corazón de Boyle Heights."}</h2>
+<section class="corner" aria-labelledby="loc">
+<div class="corner-media" data-push>{pic("corner","")}</div>{illus(lang)}
+<div class="wrap corner-in"><div class="corner-card" data-reveal><span class="eyebrow">{"Find us" if en else "Encuéntrenos"}</span><h2 id="loc">{"On Cesar Chavez Ave, in the heart of Boyle Heights." if en else "En la Cesar Chavez, en el corazón de Boyle Heights."}</h2>
 <address class="addr">{t['addr']}</address>
-<div class="cta-row"><a class="btn btn-ghost" href="{MAPS}" target="_blank" rel="noopener" data-track="directions-home">{I['pin']}<span>{t['dir']}</span></a></div>
-<p class="muted small" style="margin-top:1rem">{"Parking:" if en else "Estacionamiento:"} {need(lang,'parking details' if en else 'detalles de estacionamiento')}</p></div>
-<div data-reveal>{mapblock(lang)}</div>
-</div></section>
+<div class="cta-row"><a class="btn btn-accent" href="{MAPS}" target="_blank" rel="noopener" data-track="directions-home">{I['pin']}<span>{t['dir']}</span></a></div>
+<p class="small" style="margin-top:1rem">{"Parking:" if en else "Estacionamiento:"} {need(lang,'parking details' if en else 'detalles de estacionamiento')}</p>
+<p class="small muted-l">{"Photo: generic illustrative street scene, not the actual office or block." if en else "Foto: escena ilustrativa genérica, no es la oficina ni la cuadra real."}</p></div></div>
+</section>
 <section class="section alt" aria-labelledby="fq"><div class="wrap">
 <div class="section-head"><div><span class="eyebrow">{"Questions" if en else "Preguntas"}</span><h2 id="fq">{"Before you call" if en else "Antes de llamar"}</h2></div><p><a href="{url('new',lang,d)}">{"More for new patients" if en else "Más para pacientes nuevos"}</a></p></div>
 {faqhtml(lang,FAQ[lang][:4])}
@@ -228,7 +242,7 @@ def home(lang):
   return page(lang,'home',title,desc,body)
 def finalband(lang,d):
   en=lang=='en'
-  return f'''<section class="final" aria-labelledby="fin-{lang}"><div class="wrap"><h2 id="fin-{lang}">{"Call today, in Spanish or English." if en else "Llame hoy. Le contestamos en español o inglés."}</h2>{actions(lang,'final')}</div></section>'''
+  return f'''<section class="final tone-purple" aria-labelledby="fin-{lang}"><div class="wrap">{VINE}<h2 id="fin-{lang}" class="bi"><span lang="en">Call today.</span><span lang="es">Llame hoy.</span></h2><p class="bi-sub">{"We answer in Spanish or English." if en else "Le contestamos en español o inglés."}</p>{actions(lang,'final')}</div></section>'''
 def phero(lang,eb,h,p):
   return f'<section class="page-hero"><div class="wrap"><span class="eyebrow">{eb}</span><h1 class="sign" data-sign><span class="sign-text">{" ".join(f"<span class=w>{w}</span>" for w in h.split())}</span>{UNDER}</h1><p>{p}</p><div class="cta-row">{callbtn(lang,"btn btn-accent","pagehero")}</div></div></section>'
 def services(lang):
