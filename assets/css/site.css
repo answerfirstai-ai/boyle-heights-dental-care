@@ -350,3 +350,10 @@ p{margin:0 0 1em;max-width:62ch}
 @media (prefers-reduced-motion:reduce){.hero-media img,.win-hero::after{animation:none}.win-hero::after{display:none}}
 html,body{overflow-x:clip}
 @media (max-width:700px){.hero-media{height:70vw}.hero-label{top:calc(70vw - 30px)}.win-hero .kicker{display:none}.win-hero .window{padding-top:1rem}.win-hero .lede{margin:.7rem 0 1.1rem;font-size:1.05rem}.win-hero h1{font-size:10vw}}
+/* hours card readability fix (all pages) */
+.today{background:#fff!important;color:#111!important;opacity:1!important;padding:1.25rem 1.4rem!important;border:1px solid #1e183026!important;border-radius:6px!important}
+.today h2,.today .next,.today .fine,.today .week li,.today .week li.off,.today .status,.today .status.closed,.today .status.open{color:#111!important;opacity:1!important}
+.today .status{background:#1e183012!important}
+.today-head{border-bottom:1px solid #1e183033!important}
+.today .week li.is-today{background:#5B3A8C!important;color:#fff!important}
+.js [data-reveal].pre:has(.today){opacity:1!important;transform:none!important}
