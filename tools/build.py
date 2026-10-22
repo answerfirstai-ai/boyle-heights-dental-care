@@ -11,11 +11,11 @@ HOURS=[('Mo','09:30','17:30'),('Tu','13:00','18:00'),('We','09:30','17:30'),('Th
 SLUG={'home':{'en':'','es':''},'services':{'en':'services/','es':'servicios/'},'new':{'en':'new-patients/','es':'primera-visita/'},'hours':{'en':'hours-location/','es':'horario-ubicacion/'},'contact':{'en':'contact/','es':'contacto/'}}
 T={
 'en':{'locale':'en_US','nav':[('services','Services'),('new','New patients'),('hours','Hours & location'),('contact','Contact')],
- 'call':'Call '+PHONE,'callnow':'Call now','req':'Request a visit','skip':'Skip to content','menu':'Menu','days':['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],'short':['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],'closed':'Closed','today':'Today','hourshead':'Hours','dir':'Get directions','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Load the map','mapnote':'Map loads from Google when you ask for it.',
+ 'call':'Call '+PHONE,'callnow':'Call now','req':'Text us','sms':'Text '+PHONE,'skip':'Skip to content','menu':'Menu','days':['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],'short':['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],'closed':'Closed','today':'Today','hourshead':'Hours','dir':'Get directions','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Load the map','mapnote':'Map loads from Google when you ask for it.',
  'trust':['Se habla español','USC-trained dentist','Medi-Cal accepted','Implants &amp; dentures in-office'],
  'hoursfine':'Hours from the office’s own website.','need':'NEED'},
 'es':{'locale':'es_US','nav':[('services','Servicios'),('new','Primera visita'),('hours','Horario y ubicación'),('contact','Contacto')],
- 'call':'Llamar '+PHONE,'callnow':'Llamar ahora','req':'Pedir una cita','skip':'Ir al contenido','menu':'Menú','days':['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],'short':['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],'closed':'Cerrado','today':'Hoy','hourshead':'Horario','dir':'Cómo llegar','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Ver el mapa','mapnote':'El mapa se carga desde Google cuando usted lo pida.',
+ 'call':'Llamar '+PHONE,'callnow':'Llamar ahora','req':'Mándenos un texto','sms':'Texto al '+PHONE,'skip':'Ir al contenido','menu':'Menú','days':['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],'short':['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],'closed':'Cerrado','today':'Hoy','hourshead':'Horario','dir':'Cómo llegar','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Ver el mapa','mapnote':'El mapa se carga desde Google cuando usted lo pida.',
  'trust':['Hablamos español','Dentista formado en USC','Aceptamos Medi-Cal','Implantes y dentaduras aquí mismo'],
  'hoursfine':'Horario según el sitio web de la oficina.','need':'FALTA'}}
 def fmt(t,lang):
@@ -27,6 +27,7 @@ def rng(i,lang):
 I={
 'phone':'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>',
 'pin':'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+'sms':'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>',
 'check':'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg>',
 'tooth':'<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 4c-3.5 0-5.5 3-5 7 .4 3 2 5 2.6 8 .6 3.2 1.2 9 3.9 9 2.4 0 2.2-6.5 5.5-6.5S19.6 28 22 28c2.8 0 3.3-5.8 3.9-9 .6-3 2.3-5 2.6-8 .5-4-1.5-7-5-7-3 0-4.4 1.6-7.5 1.6S12 4 9 4Z" fill="#F2A900" fill-opacity=".35"/></svg>',
 'spark':'<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 3v8M16 21v8M3 16h8M21 16h8"/><circle cx="16" cy="16" r="3.5" fill="#F2A900"/></svg>',
@@ -54,6 +55,14 @@ def weekgrid(lang):
 def mapblock(lang):
   t=T[lang]
   return f'''<div class="map-wrap" data-map="{html.escape(EMBED)}" data-title="{'Mapa de Boyle Heights Dental Care' if lang=='es' else 'Map of Boyle Heights Dental Care'}"><div class="map-ph">{ART.replace('window-art','map-art')}<div><button type="button" class="btn btn-ghost btn-sm" data-load-map>{I["pin"]}{t["showmap"]}</button><p class="muted small">{t["mapnote"]}</p></div></div></div>'''
+def actions(lang,where):
+  en=lang=='en'
+  items=[('tel:'+TEL,'phone','Call' if en else 'Llamar',PHONE,'act-call','call'),('sms:'+TEL,'sms','Text' if en else 'Mandar texto',PHONE,'act-text','sms'),(MAPS,'pin','Directions' if en else 'Cómo llegar','2206 E Cesar E Chavez Ave','act-dir','directions')]
+  out=''
+  for h,ic,lb,sub,cls,tr in items:
+    ext=' target="_blank" rel="noopener"' if h.startswith('http') else ''
+    out+=f'<a class="act {cls}" href="{h}"{ext} data-track="{tr}-{where}"><span class="act-ic">{I[ic]}</span><span class="act-t"><b>{lb}</b><small>{sub}</small></span><span class="act-arrow" aria-hidden="true">→</span></a>'
+  return f'<div class="acts" data-reveal>{out}</div>'
 def schema(lang):
   oh=[]
   for d,o,c in HOURS:
@@ -118,7 +127,7 @@ def page(lang,key,title,desc,body,crumb=None):
 </div>
 <div class="legal"><span>© <span data-year>2026</span> Boyle Heights Dental Care · Eugene Song DDS Inc</span><span>{"Aceptamos la mayoría de los seguros. Llame para confirmar su plan." if lang=='es' else "Most insurance accepted. Call to confirm your plan."}</span></div>
 </div></footer>
-<div class="mobile-bar">{callbtn(lang,'btn btn-accent','mobilebar',False).replace(t['call'],t['callnow'])}<a class="btn btn-ghost" href="{url('contact',lang,depth)}#form" data-track="req-mobilebar">{t['req']}</a></div>
+<div class="mobile-bar">{callbtn(lang,'btn btn-accent','mobilebar',False).replace(t['call'],t['callnow'])}<a class="btn btn-ghost" href="sms:{TEL}" data-track="sms-mobilebar">{I['sms']}{t['req']}</a></div>
 <div class="brush-wipe" aria-hidden="true"></div>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
@@ -166,7 +175,7 @@ def home(lang):
 <p class="kicker">{"Your dentist on the block" if en else "Su dentista de la cuadra"}</p>
 <h1 id="h1" class="sign" data-sign><span class="sign-text">{words(h1[0])} <span class="hl">{words(h1[1])}</span></span>{UNDER}</h1>
 <p class="lede">{"Family dentistry in Boyle Heights, from cleanings to implants." if en else "Dentista familiar en Boyle Heights, desde limpiezas hasta implantes."}</p>
-<div class="cta-row">{callbtn(lang,'btn btn-accent btn-xl','hero')}<a class="text-link" href="{url('contact',lang,d)}#form" data-track="req-hero">{t['req']} →</a></div>
+<div class="cta-row">{callbtn(lang,'btn btn-accent btn-xl','hero')}<a class="text-link" href="sms:{TEL}" data-track="sms-hero">{t['req']} →</a></div>
 <p class="cta-sub" data-dyn-sub aria-live="polite"></p>
 {trust(lang)}
 </div>
@@ -219,7 +228,7 @@ def home(lang):
   return page(lang,'home',title,desc,body)
 def finalband(lang,d):
   en=lang=='en'
-  return f'''<section class="final" aria-labelledby="fin-{lang}"><div class="wrap"><h2 id="fin-{lang}">{"Call today, in Spanish or English." if en else "Llame hoy. Le contestamos en español o inglés."}</h2><div class="cta-row">{callbtn(lang,'btn btn-accent','final')}<a class="btn btn-ghost" href="{url('contact',lang,d)}#form" data-track="req-final">{T[lang]['req']}</a></div></div></section>'''
+  return f'''<section class="final" aria-labelledby="fin-{lang}"><div class="wrap"><h2 id="fin-{lang}">{"Call today, in Spanish or English." if en else "Llame hoy. Le contestamos en español o inglés."}</h2>{actions(lang,'final')}</div></section>'''
 def phero(lang,eb,h,p):
   return f'<section class="page-hero"><div class="wrap"><span class="eyebrow">{eb}</span><h1 class="sign" data-sign><span class="sign-text">{" ".join(f"<span class=w>{w}</span>" for w in h.split())}</span>{UNDER}</h1><p>{p}</p><div class="cta-row">{callbtn(lang,"btn btn-accent","pagehero")}</div></div></section>'
 def services(lang):
@@ -261,21 +270,11 @@ def contact(lang):
   days=T[lang]['short']
   chips=''.join(f'<label class="chip"><input type="checkbox" name="day" value="{days[i]}"><span>{days[i]}</span></label>' for i in (0,1,2,4,5))
   body=phero(lang,"Contact" if en else "Contacto","The fastest way is a phone call." if en else "Lo más rápido es una llamada.","We pick up in Spanish or English." if en else "Le contestamos en español o inglés.")+f'''
-<section class="section" style="padding-top:1rem" id="form"><div class="wrap split" style="align-items:start">
+<section class="section" style="padding-top:1rem" id="reach"><div class="wrap split" style="align-items:start">
 <div data-reveal>{todaycard(lang)}</div>
-<form class="form" data-form novalidate data-reveal>
-<h2 class="h3">{T[lang]['req']}</h2>
-<p class="muted small">{"Leave your name and number and we’ll call you back." if en else "Déjenos su nombre y número y le regresamos la llamada."}</p>
-<div><label for="n">{"Name" if en else "Nombre"}</label><input id="n" name="name" autocomplete="name" required></div>
-<div><label for="p">{"Phone" if en else "Teléfono"}</label><input id="p" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
-<fieldset class="seg"><legend>{"Preferred language" if en else "Idioma preferido"}</legend><label><input type="radio" name="lang" value="es"{" checked" if not en else ""}> Español</label><label><input type="radio" name="lang" value="en"{" checked" if en else ""}> English</label></fieldset>
-<fieldset class="chips-f"><legend>{"Best days (optional)" if en else "Mejores días (opcional)"}</legend>{chips}</fieldset>
-<button class="btn btn-accent" type="submit">{"Send request" if en else "Enviar"}</button>
-<div class="form-out" data-out hidden role="status"></div>
-<p class="muted small">{need(lang,'office inbox for form delivery' if en else 'correo de la oficina para recibir el formulario')}</p>
-</form></div></section>'''+finalband(lang,d)
+<div data-reveal><h2 class="h3">{"Three ways to reach us" if en else "Tres formas de comunicarse"}</h2><p class="muted">{"Call during office hours, send a text any time, or come by the office." if en else "Llame en horario de oficina, mándenos un texto cuando quiera o venga a la oficina."}</p>{actions(lang,'contact')}</div></div></section>'''
   return page(lang,'contact',"Contact & Book a Visit | Boyle Heights Dental Care (323) 265-3680" if en else "Contacto y citas | Boyle Heights Dental Care (323) 265-3680",
-   "Call (323) 265-3680 or request a visit with our Boyle Heights family dentist. English and Spanish spoken. 2206 E Cesar E Chavez Ave." if en else "Llame al (323) 265-3680 o pida una cita con su dentista familiar en Boyle Heights. Hablamos español e inglés.",body,"Contact" if en else "Contacto")
+   "Call or text (323) 265-3680, or get directions to our Boyle Heights family dentist. English and Spanish spoken. 2206 E Cesar E Chavez Ave." if en else "Llame o mande un texto al (323) 265-3680, o vea cómo llegar con su dentista familiar en Boyle Heights. Hablamos español e inglés.",body,"Contact" if en else "Contacto")
 urls=[]
 for l in ('en','es'):
   for f in (home,services,newp,hoursp,contact): urls.append((f(l),l))

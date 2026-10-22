@@ -19,7 +19,7 @@ else{var k,i,lbl;
  status=es?'Cerrado ahora':'Closed now';
  next=(es?'Abrimos '+lbl+' a la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]):'We open '+lbl+' at '+t(H[k][0]))+(es?'':'.')+(n.d===4?(es?' Los jueves cerramos.':' Closed Thursdays.'):'');
  cta=es?'Llame '+lbl+' a la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]):'Call '+lbl+' at '+t(H[k][0]);
- sub=es?'¿Fuera de horario? Pida una cita y le llamamos.':'After hours? Request a visit and we’ll call you back.';}
+ sub=es?'¿Fuera de horario? Mándenos un texto al (323) 265-3680.':'After hours? Text us at (323) 265-3680.';}
 d.querySelectorAll('[data-status]').forEach(function(s){s.textContent=status;s.classList.add(open?'open':'closed')});
 d.querySelectorAll('[data-next]').forEach(function(s){s.textContent=next});
 var di=(n.d+6)%7;d.querySelectorAll('[data-day="'+di+'"]').forEach(function(l){l.classList.add('is-today');l.setAttribute('aria-current','date')});
@@ -27,11 +27,6 @@ d.querySelectorAll('[data-dyn-sub]').forEach(function(s){s.textContent=open?(es?
 d.querySelectorAll('[data-dyn-call] span').forEach(function(s){s.parentNode.setAttribute('aria-label',cta+' — (323) 265-3680');s.textContent=cta});
 // --- map facade
 d.querySelectorAll('[data-load-map]').forEach(function(b){b.addEventListener('click',function(){var w=b.closest('.map-wrap'),f=d.createElement('iframe');f.src=w.dataset.map;f.title=w.dataset.title;f.loading='lazy';f.referrerPolicy='no-referrer-when-downgrade';f.setAttribute('allowfullscreen','');w.innerHTML='';w.appendChild(f);f.focus()})});
-// --- form (no backend yet)
-var fm=d.querySelector('[data-form]');
-if(fm)fm.addEventListener('submit',function(e){e.preventDefault();var o=fm.querySelector('[data-out]'),nm=fm.name.value.trim(),ph=fm.phone.value.trim();
- if(!nm||ph.replace(/\D/g,'').length<10){o.hidden=false;o.textContent=es?'Por favor escriba su nombre y un teléfono de 10 dígitos.':'Please enter your name and a 10-digit phone number.';(nm?fm.phone:fm.name).focus();return}
- o.hidden=false;o.innerHTML=(es?'Gracias, '+nm+'. Este formulario de vista previa aún no envía mensajes. Para una cita hoy, llame al ':'Thanks, '+nm+'. This preview form isn’t connected yet. To book today, call ')+'<a href="tel:+13232653680">(323) 265-3680</a>.';track('form-submit')});
 // --- tracking hooks (no analytics installed; dataLayer-ready)
 function track(ev){(window.dataLayer=window.dataLayer||[]).push({event:ev,lang:lang})}
 d.addEventListener('click',function(e){var a=e.target.closest('[data-track]');if(a)track(a.dataset.track)});
