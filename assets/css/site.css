@@ -274,3 +274,18 @@ p{margin:0 0 1em;max-width:62ch}
 @media (max-width:620px){.hours-card .week-grid{grid-template-columns:1fr 1fr}.steps.big .num{font-size:4.5rem}.corner{min-height:640px}.corner::after{background:linear-gradient(0deg,#140c22f2 30%,#140c2266 80%)}.corner .illus{top:1rem;bottom:auto;left:1rem;right:auto}}
 html,body{overflow-x:clip}
 @media (max-width:620px){.hero [data-hours-card]{display:none}}
+/* photo hero */
+.hero-photo{min-height:min(88vh,760px);display:flex;align-items:center;background:#1a1008;color:#fff;padding:clamp(3rem,7vw,6rem) 0}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:70% 50%;animation:push 2.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes push{from{transform:scale(1.07)}to{transform:none}}
+.hero-photo::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#140b06f0 0%,#140b06c0 34%,#140b0626 62%,transparent 80%)}
+.hero-photo .wrap{display:block}.hero-photo .window{max-width:40rem}
+.hero-photo h1,.hero-photo .lede,.hero-photo .kicker,.hero-photo .cta-sub{color:#fff}
+.hero-photo .lede{color:#efe6da}.hero-photo .hl{color:#F2A900}.hero-photo .kicker{color:#ffd56a}
+.hero-photo .text-link{color:#fff}
+.hero-photo .trust li{background:#ffffff14;border-color:#ffffff33;color:#fff;backdrop-filter:blur(6px)}.hero-photo .trust svg{color:#8fe0b0}
+.hero-photo .illus{top:auto;left:auto;bottom:1rem;right:1rem}
+@media (max-width:700px){.hero-photo{min-height:auto;align-items:flex-end;padding-top:min(78vw,340px)}.hero-media img{object-position:50% 30%}.hero-photo::before{background:linear-gradient(180deg,transparent 0%,#140b0633 22%,#140b06e6 48%,#140b06 70%)}.hero-photo .illus{top:1rem;bottom:auto;left:1rem;right:auto}.hero-photo .trust{display:none}}
+@media (prefers-reduced-motion:reduce){.hero-media img{animation:none}}
+@media (max-width:700px){.hero-media{bottom:auto;height:440px}.hero-media img{object-position:30% 78%}.hero-photo{padding-top:330px;background:#140b06}.hero-photo::before{background:linear-gradient(180deg,transparent 0,transparent 200px,#140b06 440px)}}

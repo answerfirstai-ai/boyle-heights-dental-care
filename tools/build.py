@@ -185,7 +185,7 @@ def home(lang):
   en=lang=='en'; t=T[lang]; d=1
   h1=("Your first visit, $50.","Right here on Cesar Chavez.") if en else ("Su primera visita, $50.","Aquí en Cesar Chavez.")
   words=lambda s:' '.join(f'<span class="w">{w}</span>' for w in s.split())
-  body=f'''<section class="hero" aria-labelledby="h1"><div class="wrap">
+  body=f'''<section class="hero hero-photo" aria-labelledby="h1"><picture class="hero-media"><source media="(max-width:700px)" type="image/avif" srcset="../assets/img/hero-t-420.avif 420w, ../assets/img/hero-t-780.avif 780w" sizes="100vw"><source media="(max-width:700px)" type="image/webp" srcset="../assets/img/hero-t-420.webp 420w, ../assets/img/hero-t-780.webp 780w" sizes="100vw"><source type="image/avif" srcset="../assets/img/hero-w-1280.avif 1280w, ../assets/img/hero-w-2048.avif 2048w" sizes="100vw"><source type="image/webp" srcset="../assets/img/hero-w-1280.webp 1280w, ../assets/img/hero-w-2048.webp 2048w" sizes="100vw"><img src="../assets/img/hero-w-1280.webp" width="1280" height="720" alt="" fetchpriority="high" decoding="async"></picture>{illus(lang)}<div class="wrap">
 <div class="window">
 <p class="kicker">{"Your dentist on the block" if en else "Su dentista de la cuadra"}</p>
 <h1 id="h1" class="sign" data-sign><span class="sign-text">{words(h1[0])} <span class="hl">{words(h1[1])}</span></span>{UNDER}</h1>
@@ -194,8 +194,7 @@ def home(lang):
 <p class="cta-sub" data-dyn-sub aria-live="polite"></p>
 {trust(lang)}
 </div>
-{todaycard(lang)}
-</div>{ART}</section>
+</div></section>
 <section class="band" aria-label="{'New patient special' if en else 'Especial para pacientes nuevos'}"><div class="wrap">
 <p><strong>$50</strong> {"new patient exam &amp; X-rays." if en else "examen y radiografías para pacientes nuevos."} <span class="terms">{need(lang,NEEDS[lang][0])}</span></p>
 {callbtn(lang,'btn btn-accent btn-sm','band',False)}</div></section>
