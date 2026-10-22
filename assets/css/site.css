@@ -197,3 +197,5 @@ p{margin:0 0 1em;max-width:62ch}
 .js [data-sign] .w{clip-path:inset(0 100% 0 0)}
 @media (prefers-reduced-motion:reduce){.js [data-sign] .w{clip-path:none}}
 @media (max-width:620px){.btn-xl{font-size:1.02rem;padding:1rem 1.1rem;width:100%;justify-content:center}.hero .text-link{width:100%}}
+.week li.is-today,.week-grid li.is-today{color:var(--color-text)}
+.band a.btn-accent,.band a.btn-accent:hover{color:var(--color-on-accent)}
