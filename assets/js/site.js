@@ -19,7 +19,7 @@ else{var k,i,lbl;
  status=es?'Cerrado ahora':'Closed now';
  next=(es?'Abrimos '+lbl+' a la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]):'We open '+lbl+' at '+t(H[k][0]))+(es?'':'.')+(n.d===4?(es?' Los jueves cerramos.':' Closed Thursdays.'):'');
  cta=es?'Llame '+lbl+' a la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]):'Call '+lbl+' at '+t(H[k][0]);
- sub=es?'¿Fuera de horario? Mándenos un texto al (323) 265-3680.':'After hours? Text us at (323) 265-3680.';}
+ sub=es?'Estamos cerrados ahora. Llámenos '+lbl+' a partir de la'+(H[k][0]>=780?' ':'s ')+t(H[k][0])+'.':'We’re closed right now. Give us a call '+lbl+' from '+t(H[k][0])+'.';}
 d.querySelectorAll('[data-status]').forEach(function(s){s.textContent=status;s.classList.add(open?'open':'closed')});
 d.querySelectorAll('[data-next]').forEach(function(s){s.textContent=next});
 var di=(n.d+6)%7;d.querySelectorAll('[data-day="'+di+'"]').forEach(function(l){l.classList.add('is-today');l.setAttribute('aria-current','date')});

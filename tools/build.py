@@ -11,11 +11,11 @@ HOURS=[('Mo','09:30','17:30'),('Tu','13:00','18:00'),('We','09:30','17:30'),('Th
 SLUG={'home':{'en':'','es':''},'services':{'en':'services/','es':'servicios/'},'new':{'en':'new-patients/','es':'primera-visita/'},'hours':{'en':'hours-location/','es':'horario-ubicacion/'},'contact':{'en':'contact/','es':'contacto/'}}
 T={
 'en':{'locale':'en_US','nav':[('services','Services'),('new','New patients'),('hours','Hours & location'),('contact','Contact')],
- 'call':'Call '+PHONE,'callnow':'Call now','req':'Text us','sms':'Text '+PHONE,'skip':'Skip to content','menu':'Menu','days':['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],'short':['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],'closed':'Closed','today':'Today','hourshead':'Hours','dir':'Get directions','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Load the map','mapnote':'Map loads from Google when you ask for it.',
+ 'call':'Call '+PHONE,'callnow':'Call now','req':'Get directions','skip':'Skip to content','menu':'Menu','days':['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],'short':['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],'closed':'Closed','today':'Today','hourshead':'Hours','dir':'Get directions','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Load the map','mapnote':'Map loads from Google when you ask for it.',
  'trust':['Se habla español','USC-trained dentist','Medi-Cal accepted','Implants &amp; dentures in-office'],
  'hoursfine':'Hours from the office’s own website.','need':'NEED'},
 'es':{'locale':'es_US','nav':[('services','Servicios'),('new','Primera visita'),('hours','Horario y ubicación'),('contact','Contacto')],
- 'call':'Llamar '+PHONE,'callnow':'Llamar ahora','req':'Mándenos un texto','sms':'Texto al '+PHONE,'skip':'Ir al contenido','menu':'Menú','days':['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],'short':['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],'closed':'Cerrado','today':'Hoy','hourshead':'Horario','dir':'Cómo llegar','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Ver el mapa','mapnote':'El mapa se carga desde Google cuando usted lo pida.',
+ 'call':'Llamar '+PHONE,'callnow':'Llamar ahora','req':'Cómo llegar','skip':'Ir al contenido','menu':'Menú','days':['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],'short':['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],'closed':'Cerrado','today':'Hoy','hourshead':'Horario','dir':'Cómo llegar','addr':'2206 E Cesar E Chavez Ave<br>Los Angeles, CA 90033','showmap':'Ver el mapa','mapnote':'El mapa se carga desde Google cuando usted lo pida.',
  'trust':['Hablamos español','Dentista formado en USC','Aceptamos Medi-Cal','Implantes y dentaduras aquí mismo'],
  'hoursfine':'Horario según el sitio web de la oficina.','need':'FALTA'}}
 def fmt(t,lang):
@@ -57,7 +57,7 @@ def mapblock(lang):
   return f'''<div class="map-wrap" data-map="{html.escape(EMBED)}" data-title="{'Mapa de Boyle Heights Dental Care' if lang=='es' else 'Map of Boyle Heights Dental Care'}"><div class="map-ph">{ART.replace('window-art','map-art')}<div><button type="button" class="btn btn-ghost btn-sm" data-load-map>{I["pin"]}{t["showmap"]}</button><p class="muted small">{t["mapnote"]}</p></div></div></div>'''
 def actions(lang,where):
   en=lang=='en'
-  items=[('tel:'+TEL,'phone','Call' if en else 'Llamar',PHONE,'act-call','call'),('sms:'+TEL,'sms','Text' if en else 'Mandar texto',PHONE,'act-text','sms'),(MAPS,'pin','Directions' if en else 'Cómo llegar','2206 E Cesar E Chavez Ave','act-dir','directions')]
+  items=[('tel:'+TEL,'phone','Call' if en else 'Llamar',PHONE,'act-call','call'),(MAPS,'pin','Directions' if en else 'Cómo llegar','2206 E Cesar E Chavez Ave','act-dir','directions')]
   out=''
   for h,ic,lb,sub,cls,tr in items:
     ext=' target="_blank" rel="noopener"' if h.startswith('http') else ''
@@ -127,7 +127,7 @@ def page(lang,key,title,desc,body,crumb=None):
 </div>
 <div class="legal"><span>© <span data-year>2026</span> Boyle Heights Dental Care · Eugene Song DDS Inc</span><span>{"Aceptamos la mayoría de los seguros. Llame para confirmar su plan." if lang=='es' else "Most insurance accepted. Call to confirm your plan."}</span></div>
 </div></footer>
-<div class="mobile-bar">{callbtn(lang,'btn btn-accent','mobilebar',False).replace(t['call'],t['callnow'])}<a class="btn btn-ghost" href="sms:{TEL}" data-track="sms-mobilebar">{I['sms']}{t['req']}</a></div>
+<div class="mobile-bar">{callbtn(lang,'btn btn-accent','mobilebar',False).replace(t['call'],t['callnow'])}<a class="btn btn-ghost" href="{MAPS}" target="_blank" rel="noopener" data-track="directions-mobilebar">{I['pin']}{t['req']}</a></div>
 <div class="brush-wipe" aria-hidden="true"></div>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
@@ -175,7 +175,7 @@ def home(lang):
 <p class="kicker">{"Your dentist on the block" if en else "Su dentista de la cuadra"}</p>
 <h1 id="h1" class="sign" data-sign><span class="sign-text">{words(h1[0])} <span class="hl">{words(h1[1])}</span></span>{UNDER}</h1>
 <p class="lede">{"Family dentistry in Boyle Heights, from cleanings to implants." if en else "Dentista familiar en Boyle Heights, desde limpiezas hasta implantes."}</p>
-<div class="cta-row">{callbtn(lang,'btn btn-accent btn-xl','hero')}<a class="text-link" href="sms:{TEL}" data-track="sms-hero">{t['req']} →</a></div>
+<div class="cta-row">{callbtn(lang,'btn btn-accent btn-xl','hero')}<a class="text-link" href="{MAPS}" target="_blank" rel="noopener" data-track="directions-hero">{t['req']} →</a></div>
 <p class="cta-sub" data-dyn-sub aria-live="polite"></p>
 {trust(lang)}
 </div>
@@ -204,7 +204,7 @@ def home(lang):
 <p>{"A Southern California native, Dr. Song earned his bachelor’s degree at the University of Southern California and studied dentistry at USC’s Herman Ostrow School of Dentistry. Outside the office you’ll find him on a tennis court. He’s proud to care for Boyle Heights and greater Los Angeles." if en else "Originario del sur de California, el Dr. Song obtuvo su licenciatura en la University of Southern California y estudió odontología en la Herman Ostrow School of Dentistry de USC. Fuera de la oficina, lo encontrará en una cancha de tenis. Es un honor para él atender a Boyle Heights y a todo Los Ángeles."}</p>
 <p class="muted small">{need(lang,'headshot of Dr. Song' if en else 'foto del Dr. Song')}</p>
 </div></div>
-<figure class="photo" data-reveal><picture><source srcset="../assets/img/storefront-2206.webp" type="image/webp"><img src="../assets/img/storefront-2206.jpg" width="640" height="480" loading="lazy" decoding="async" alt="{'Storefront of Boyle Heights Dental Care at 2206 E Cesar E Chavez Ave, with a DENTIST sign and bilingual window lettering' if en else 'Fachada de Boyle Heights Dental Care en 2206 E Cesar E Chavez Ave, con el letrero DENTIST y letreros bilingües en las ventanas'}"></picture><figcaption>{"Look for the blue awning at 2206." if en else "Busque el toldo azul con el número 2206."}</figcaption></figure>
+<figure class="photo" data-reveal><picture><source srcset="../assets/img/storefront-2206.webp" type="image/webp"><img src="../assets/img/storefront-2206.jpg" width="640" height="480" loading="lazy" decoding="async" alt="{'Storefront of Boyle Heights Dental Care at 2206 E Cesar E Chavez Ave, with a DENTIST sign and bilingual window lettering' if en else 'Fachada de Boyle Heights Dental Care en 2206 E Cesar E Chavez Ave, con el letrero DENTIST y letreros bilingües en las ventanas'}"></picture></figure>
 </div></section>
 <section class="section alt" aria-labelledby="wk"><div class="wrap">
 <div class="section-head"><div><span class="eyebrow">{t['hourshead']}</span><h2 id="wk">{"Tuesdays we open at 1. Thursdays we’re closed." if en else "Martes abrimos a la 1. Los jueves cerramos."}</h2></div><p>{"Saturday mornings too, for the week you can’t get away." if en else "También sábados por la mañana, para las semanas en que no puede salir del trabajo."}</p></div>
@@ -272,9 +272,9 @@ def contact(lang):
   body=phero(lang,"Contact" if en else "Contacto","The fastest way is a phone call." if en else "Lo más rápido es una llamada.","We pick up in Spanish or English." if en else "Le contestamos en español o inglés.")+f'''
 <section class="section" style="padding-top:1rem" id="reach"><div class="wrap split" style="align-items:start">
 <div data-reveal>{todaycard(lang)}</div>
-<div data-reveal><h2 class="h3">{"Three ways to reach us" if en else "Tres formas de comunicarse"}</h2><p class="muted">{"Call during office hours, send a text any time, or come by the office." if en else "Llame en horario de oficina, mándenos un texto cuando quiera o venga a la oficina."}</p>{actions(lang,'contact')}</div></div></section>'''
+<div data-reveal><h2 class="h3">{"Call us or come by" if en else "Llámenos o venga a vernos"}</h2><p class="muted">{"Call during office hours, or get directions to the office on Cesar Chavez Ave." if en else "Llame en horario de oficina o vea cómo llegar a la oficina en la Cesar Chavez."}</p>{actions(lang,'contact')}</div></div></section>'''
   return page(lang,'contact',"Contact & Book a Visit | Boyle Heights Dental Care (323) 265-3680" if en else "Contacto y citas | Boyle Heights Dental Care (323) 265-3680",
-   "Call or text (323) 265-3680, or get directions to our Boyle Heights family dentist. English and Spanish spoken. 2206 E Cesar E Chavez Ave." if en else "Llame o mande un texto al (323) 265-3680, o vea cómo llegar con su dentista familiar en Boyle Heights. Hablamos español e inglés.",body,"Contact" if en else "Contacto")
+   "Call (323) 265-3680 or get directions to our Boyle Heights family dentist. English and Spanish spoken. 2206 E Cesar E Chavez Ave." if en else "Llame al (323) 265-3680 o vea cómo llegar con su dentista familiar en Boyle Heights. Hablamos español e inglés.",body,"Contact" if en else "Contacto")
 urls=[]
 for l in ('en','es'):
   for f in (home,services,newp,hoursp,contact): urls.append((f(l),l))
