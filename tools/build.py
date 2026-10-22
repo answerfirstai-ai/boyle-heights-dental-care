@@ -32,7 +32,7 @@ I={
 'tooth':'<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 4c-3.5 0-5.5 3-5 7 .4 3 2 5 2.6 8 .6 3.2 1.2 9 3.9 9 2.4 0 2.2-6.5 5.5-6.5S19.6 28 22 28c2.8 0 3.3-5.8 3.9-9 .6-3 2.3-5 2.6-8 .5-4-1.5-7-5-7-3 0-4.4 1.6-7.5 1.6S12 4 9 4Z" fill="#F2A900" fill-opacity=".35"/></svg>',
 'spark':'<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 3v8M16 21v8M3 16h8M21 16h8"/><circle cx="16" cy="16" r="3.5" fill="#F2A900"/></svg>',
 'implant':'<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h14c1.5 0 2.5 1.5 2 3l-1.5 5h-15L7 6c-.5-1.5.5-3 2-3Z" fill="#F2A900" fill-opacity=".35"/><path d="M11 14h10M12 18h8M13 22h6M14.5 26h3"/></svg>'}
-UNDER='<svg class="sign-line" viewBox="0 0 420 18" preserveAspectRatio="none" aria-hidden="true"><path class="brush" d="M3 12C70 5 160 4 230 8s130 6 187-2" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg>'
+UNDER='';_OLD='<svg class="sign-line" viewBox="0 0 420 18" preserveAspectRatio="none" aria-hidden="true"><path class="brush" d="M3 12C70 5 160 4 230 8s130 6 187-2" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg>'
 ART='''<svg class="window-art" viewBox="0 0 240 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 30c40 10 80 8 120 30s70 50 95 52"/><path d="M70 41c-6-14 2-24 10-26M110 52c4-16 16-22 26-20M150 70c-2 14 6 24 16 26M190 92c10-10 22-10 30-4"/><g fill="#F2A900" fill-opacity=".9" stroke="#5B3A8C"><circle cx="80" cy="15" r="5"/><circle cx="92" cy="22" r="4"/><circle cx="136" cy="32" r="5"/><circle cx="146" cy="42" r="3.5"/><circle cx="166" cy="96" r="5"/><circle cx="220" cy="88" r="4.5"/><circle cx="208" cy="80" r="3"/></g><g fill="#B79AE0" fill-opacity=".55"><circle cx="58" cy="28" r="4"/><circle cx="120" cy="60" r="4"/><circle cx="178" cy="100" r="3.5"/></g></svg>'''
 def need(lang,txt): return f'<span class="need">[{T[lang]["need"]}: {txt}]</span>'
 def url(page,lang,depth): return ('../'*depth)+lang+'/'+SLUG[page][lang]
@@ -115,7 +115,7 @@ def page(lang,key,title,desc,body,crumb=None):
 <link rel="icon" href="{r}favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="{r}assets/img/icon-32.png"><link rel="apple-touch-icon" href="{r}assets/img/icon-180.png"><link rel="manifest" href="{r}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap">
-{'<link rel="preload" as="image" type="image/avif" imagesrcset="'+r+'assets/img/hero-glass-1440.avif 1440w, '+r+'assets/img/hero-glass-2880.avif 2880w" imagesizes="100vw" media="(min-width:701px)" fetchpriority="high"><link rel="preload" as="image" type="image/avif" imagesrcset="'+r+'assets/img/hero-glass-m-800.avif 800w, '+r+'assets/img/hero-glass-m-1600.avif 1600w" imagesizes="100vw" media="(max-width:700px)" fetchpriority="high">' if key=='home' else ''}<link rel="stylesheet" href="{r}assets/css/site.css">
+{'<link rel="preload" as="image" type="image/avif" imagesrcset="'+r+'assets/img/h5-1440.avif 1440w, '+r+'assets/img/h5-2880.avif 2880w" imagesizes="100vw" media="(min-width:701px)" fetchpriority="high"><link rel="preload" as="image" type="image/avif" imagesrcset="'+r+'assets/img/h5m-800.avif 800w, '+r+'assets/img/h5m-1200.avif 1200w" imagesizes="100vw" media="(max-width:700px)" fetchpriority="high">' if key=='home' else ''}<link rel="stylesheet" href="{r}assets/css/site.css">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">{json.dumps(ld if len(ld)>1 else ld[0],ensure_ascii=False)}</script>
 </head>
@@ -133,8 +133,7 @@ def page(lang,key,title,desc,body,crumb=None):
 </main>
 <footer class="site-footer door"><div class="wrap">
 <div class="decal">
-<p class="decal-call"><a href="tel:{TEL}" data-track="call-footer"><span lang="en">Call today.</span><span lang="es">Llame hoy.</span></a></p>
-<p class="decal-nap">2206 E Cesar E Chavez Ave, Los Angeles 90033. <a href="tel:{TEL}">{PHONE}</a></p>
+<p class="decal-nap"><b>Boyle Heights Dental Care</b><br>2206 E Cesar E Chavez Ave, Los Angeles 90033. <a href="tel:{TEL}" data-track="call-footer">{PHONE}</a></p>
 <ul class="foot-week" role="list">{wk}</ul>
 <p class="decal-sub">{"Le contestamos en español o inglés." if lang=='es' else "We answer in Spanish or English."} <a href="{MAPS}" rel="noopener" target="_blank">{t['dir']}</a></p>
 </div>
@@ -181,50 +180,49 @@ def svcgrid(lang):
 
 def home(lang):
   en=lang=='en'; t=T[lang]; d=1
-  h1=("Your first visit, $50.","Right here on Cesar Chavez.") if en else ("Su primera visita, $50.","Aquí en Cesar Chavez.")
-  words=lambda s:' '.join(f'<span class="w">{w}</span>' for w in s.split())
   big=["Dental implants","Implant-supported dentures"] if en else ["Implantes dentales","Dentaduras sobre implantes"]
   small=[x for _,_,_,li in SERV[lang] for x in li if x not in big]
-  body=f'''<section class="hero glass-hero" aria-labelledby="h1"><picture class="hero-media"><source media="(max-width:700px)" type="image/avif" srcset="../assets/img/hero-glass-m-800.avif 800w, ../assets/img/hero-glass-m-1600.avif 1600w" sizes="100vw"><source media="(max-width:700px)" type="image/webp" srcset="../assets/img/hero-glass-m-800.webp 800w, ../assets/img/hero-glass-m-1600.webp 1600w" sizes="100vw"><source type="image/avif" srcset="../assets/img/hero-glass-1440.avif 1440w, ../assets/img/hero-glass-2880.avif 2880w" sizes="100vw"><source type="image/webp" srcset="../assets/img/hero-glass-1440.webp 1440w, ../assets/img/hero-glass-2880.webp 2880w" sizes="100vw"><img src="../assets/img/hero-glass-1440.webp" width="1440" height="810" fetchpriority="high" decoding="async" alt="{"Illustrative: a shop-window pane reflecting a blooming jacaranda tree in early morning light. Not a photo of Boyle Heights Dental Care." if en else "Ilustrativa: el vidrio de un escaparate que refleja una jacaranda en flor con luz de la mañana. No es una foto de Boyle Heights Dental Care."}"></picture><span class="hero-label">{"Illustrative scene" if en else "Escena ilustrativa"}</span><div class="wrap">
+  alt=("Illustrative: a Boyle Heights sidewalk in morning light, with a blooming jacaranda reflected in an unlettered shop window. Not a photo of Boyle Heights Dental Care." if en else "Ilustrativa: una banqueta de Boyle Heights con luz de la mañana y una jacaranda en flor reflejada en un escaparate sin letreros. No es una foto de Boyle Heights Dental Care.")
+  img=f'<picture class="hero-media"><source media="(max-width:700px)" type="image/avif" srcset="../assets/img/h5m-800.avif 800w, ../assets/img/h5m-1200.avif 1200w" sizes="100vw"><source media="(max-width:700px)" type="image/webp" srcset="../assets/img/h5m-800.webp 800w, ../assets/img/h5m-1200.webp 1200w" sizes="100vw"><source type="image/avif" srcset="../assets/img/h5-1440.avif 1440w, ../assets/img/h5-2880.avif 2880w" sizes="100vw"><source type="image/webp" srcset="../assets/img/h5-1440.webp 1440w, ../assets/img/h5-2880.webp 2880w" sizes="100vw"><img src="../assets/img/h5-1440.webp" width="1440" height="810" fetchpriority="high" decoding="async" alt="{alt}"></picture>'
+  notes=["$50 new patient exam &amp; X-rays: what’s included and terms","Spanish-speaking staff","opening times (office site 9:30; Google 9:15)","Dr. Eugene Song’s credentials and photo","parking details"] if en else ["examen y radiografías de $50: qué incluye y condiciones","personal que habla español","hora de apertura (sitio 9:30; Google 9:15)","credenciales y foto del Dr. Eugene Song","detalles de estacionamiento"]
+  body=f'''<section class="hero win-hero" aria-labelledby="h1">{img}<span class="hero-label">{"Illustrative scene" if en else "Escena ilustrativa"}</span><div class="wrap">
 <div class="window">
 <p class="kicker">{"Your dentist on the block" if en else "Su dentista de la cuadra"}</p>
-<h1 id="h1" class="sign" data-sign><span class="sign-text">{words(h1[0])} <span class="hl">{words(h1[1])}</span></span>{UNDER}</h1>
+<h1 id="h1">{"Your first visit, $50." if en else "Su primera visita, $50."} <span class="hl">{"Right here on Cesar Chavez." if en else "Aquí en Cesar Chavez."}</span></h1>
 <p class="lede">{"Family dentistry in Boyle Heights, from cleanings to implants." if en else "Dentista familiar en Boyle Heights, desde limpiezas hasta implantes."}</p>
-<div class="cta-row">{callbtn(lang,'btn btn-accent btn-xl','hero')}<a class="text-link" href="{url('hours',lang,d)}" data-track="hours-hero">{"Hours" if en else "Horario"} →</a></div>
+<div class="cta-row">{callbtn(lang,'btn btn-accent btn-xl','hero')}<a class="text-link" href="#hoy" data-track="hours-hero">{"Today’s hours" if en else "Horario de hoy"} →</a></div>
 <p class="cta-sub" data-dyn-sub aria-live="polite"></p>
-<p class="trust-line">{" · ".join(T[lang]['trust'])}</p>
-<p class="small">{need(lang,"confirm $50 special, Spanish-speaking staff and hours before launch" if en else "confirmar especial de $50, personal que habla español y horario antes de publicar")}</p>
-</div>
-</div></section>
-<div class="decal-row"><div class="wrap">{todaycard(lang)}</div></div>
-<section class="banner" aria-label="{'New patient special' if en else 'Especial para pacientes nuevos'}"><div class="wrap"><p class="banner-paint"><span>{"First visit" if en else "Primera visita"}</span> <b>$50</b></p><p class="banner-small">{"New patient exam &amp; X-rays." if en else "Examen y radiografías para pacientes nuevos."} {need(lang,NEEDS[lang][0])}</p>{callbtn(lang,'btn btn-accent btn-sm','band',False)}</div></section>
-<section class="pane" aria-labelledby="first"><div class="wrap pane-grid">
-<h2 id="first" class="pane-h">{"Your first visit" if en else "Su primera visita"}</h2>
-<ol class="notice">
-<li><span class="n">1</span><div><h3>{"Call us" if en else "Llámenos"}</h3><p>{"Pick a time that works. We answer in English or Spanish." if en else "Escoja un horario que le funcione. Le atendemos en español o inglés."}</p></div></li>
-<li><span class="n">2</span><div><h3>{"Exam &amp; X-rays" if en else "Examen y radiografías"}</h3><p>{"Dr. Song checks your teeth and gums and takes the X-rays he needs." if en else "El Dr. Song revisa sus dientes y encías y toma las radiografías necesarias."}</p></div></li>
-<li><span class="n">3</span><div><h3>{"Your plan &amp; price" if en else "Su plan y su precio"}</h3><p>{"You leave knowing what you need, what it costs and what insurance covers." if en else "Usted sale sabiendo qué necesita, cuánto cuesta y qué cubre su seguro."}</p></div></li>
+</div></div></section>
+<div class="facade">
+<div class="frame">
+<section class="pane pane-offer" aria-labelledby="first">
+<div class="pane-in"><p class="lettering-sm">{"Painted on the window" if en else "Pintado en la vitrina"}</p>
+<h2 id="first" class="lettering">{"First visit" if en else "Primera visita"} <span>$50</span></h2>
+<p class="pane-p">{"New patient exam &amp; X-rays. Here’s how it goes:" if en else "Examen y radiografías para pacientes nuevos. Así funciona:"}</p>
+<ol class="mullions">
+<li><b>1</b><span><strong>{"Call us." if en else "Llámenos."}</strong> {"Pick a time. We answer in English or Spanish." if en else "Escoja un horario. Le atendemos en español o inglés."}</span></li>
+<li><b>2</b><span><strong>{"Exam &amp; X-rays." if en else "Examen y radiografías."}</strong> {"Dr. Song checks your teeth and gums." if en else "El Dr. Song revisa sus dientes y encías."}</span></li>
+<li><b>3</b><span><strong>{"Your plan &amp; price." if en else "Su plan y su precio."}</strong> {"You leave knowing what you need and what it costs." if en else "Usted sale sabiendo qué necesita y cuánto cuesta."}</span></li>
 </ol></div></section>
-<section class="pane pane-dark" aria-labelledby="svc"><div class="wrap pane-grid">
-<div><h2 id="svc" class="pane-h">{"From a cleaning to a full set of implant dentures." if en else "Desde una limpieza hasta dentaduras sobre implantes."}</h2><p class="pane-p">{"Dentures that stay put, held by implants." if en else "Dentaduras que no se mueven: sostenidas con implantes."}</p><p><a href="{url('services',lang,d)}">{"All services" if en else "Todos los servicios"} →</a></p></div>
-<div class="signlist"><ul class="sl-big" role="list">{"".join(f"<li>{x}</li>" for x in big)}</ul><ul class="sl-small" role="list">{"".join(f"<li>{x}</li>" for x in small)}</ul></div>
-</div></section>
-<section class="pane" aria-labelledby="doc"><div class="wrap pane-grid">
-<span class="pane-h small-label">{"Your dentist" if en else "Su dentista"}</span>
-<div class="nameplate"><h2 id="doc">Dr. Eugene Song, DDS</h2><p>{need(lang,"confirm" if en else "confirmar")}</p></div>
-</div></section>
-<section class="pane pane-loc" aria-labelledby="loc"><div class="wrap pane-grid">
-<figure class="door"><picture><source srcset="../assets/img/storefront-2206.webp" type="image/webp"><img src="../assets/img/storefront-2206.jpg" width="640" height="480" loading="lazy" decoding="async" alt="{'Storefront of Boyle Heights Dental Care at 2206 E Cesar E Chavez Ave' if en else 'Fachada de Boyle Heights Dental Care en 2206 E Cesar E Chavez Ave'}"></picture></figure>
-<div class="glass-addr"><h2 id="loc">{"On Cesar Chavez Ave, in the heart of Boyle Heights." if en else "En la Cesar Chavez, en el corazón de Boyle Heights."}</h2>
+<section class="pane pane-door" id="hoy" aria-label="{t['today']}">{todaycard(lang)}</section>
+<section class="pane pane-svc" aria-labelledby="svc"><div class="pane-in">
+<h2 id="svc" class="lettering lettering-mid">{"From a cleaning to a full set of implant dentures." if en else "Desde una limpieza hasta dentaduras sobre implantes."}</h2>
+<ul class="sl-big" role="list">{"".join(f"<li>{x}</li>" for x in big)}</ul>
+<ul class="sl-small" role="list">{"".join(f"<li>{x}</li>" for x in small)}</ul>
+<p><a href="{url('services',lang,d)}">{"All services" if en else "Todos los servicios"} →</a></p></div></section>
+<section class="pane pane-shop" aria-labelledby="loc">
+<figure class="door"><picture><source srcset="../assets/img/storefront-2206.webp" type="image/webp"><img src="../assets/img/storefront-2206.jpg" width="640" height="480" loading="lazy" decoding="async" alt="{'Storefront of Boyle Heights Dental Care at 2206 E Cesar E Chavez Ave' if en else 'Fachada de Boyle Heights Dental Care en 2206 E Cesar E Chavez Ave'}"></picture><figcaption>{"The office at 2206, from its own website." if en else "La oficina en el 2206, de su propio sitio web."}</figcaption></figure>
+<div class="pane-in"><h2 id="loc" class="lettering lettering-mid">{"On Cesar Chavez Ave, in the heart of Boyle Heights." if en else "En la Cesar Chavez, en el corazón de Boyle Heights."}</h2>
 <address class="addr">{t['addr']}</address>
-<div class="cta-row"><a class="btn btn-accent" href="{MAPS}" target="_blank" rel="noopener" data-track="directions-home">{I['pin']}<span>{t['dir']}</span></a></div>
-<p class="small" style="margin-top:1rem">{"Parking:" if en else "Estacionamiento:"} {need(lang,'parking details' if en else 'detalles de estacionamiento')}</p></div>
-</div></section>
-<section class="pane" aria-labelledby="fq"><div class="wrap">
-<h2 id="fq" class="pane-h">{"Before you call" if en else "Antes de llamar"}</h2>
-<div class="notices">{faqhtml(lang,FAQ[lang][:4])}</div>
-<p><a href="{url('new',lang,d)}">{"More for new patients" if en else "Más para pacientes nuevos"} →</a></p>
-</div></section>'''
+<p class="doc-line" id="doc">Dr. Eugene Song, DDS</p>
+<div class="cta-row"><a class="btn btn-ghost" href="{MAPS}" target="_blank" rel="noopener" data-track="directions-home">{I['pin']}<span>{t['dir']}</span></a></div></div></section>
+<section class="pane pane-faq" aria-labelledby="fq"><div class="pane-in">
+<h2 id="fq" class="lettering lettering-mid">{"Before you call" if en else "Antes de llamar"}</h2>
+<div class="notices">{faqhtml(lang,[(q,strip(a)) for q,a in FAQ[lang][:4]])}</div>
+<p><a href="{url('new',lang,d)}">{"More for new patients" if en else "Más para pacientes nuevos"} →</a></p></div></section>
+</div>
+<aside class="draft-note" aria-label="{'Notes for the office' if en else 'Notas para la oficina'}"><p><b>{"Draft. To confirm with the office before launch:" if en else "Borrador. Por confirmar con la oficina antes de publicar:"}</b> {"; ".join(notes)}. {"Practice details come from the office’s own website." if en else "Los datos vienen del sitio web de la oficina."}</p></aside>
+</div>'''
   title='Boyle Heights Dental Care | Family Dentist on Cesar Chavez Ave' if en else 'Boyle Heights Dental Care | Dentista familiar en Cesar Chavez'
   desc='Family dentistry in Boyle Heights, LA 90033. Implants, dentures and checkups. $50 new patient visit. Call (323) 265-3680.' if en else 'Dentista familiar en Boyle Heights. Implantes, dentaduras y limpiezas. Primera visita $50. Llame al (323) 265-3680.'
   return page(lang,'home',title,desc,body)
