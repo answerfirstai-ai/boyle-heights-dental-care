@@ -34,7 +34,10 @@ I={
 'implant':'<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h14c1.5 0 2.5 1.5 2 3l-1.5 5h-15L7 6c-.5-1.5.5-3 2-3Z" fill="#F2A900" fill-opacity=".35"/><path d="M11 14h10M12 18h8M13 22h6M14.5 26h3"/></svg>'}
 UNDER='';_OLD='<svg class="sign-line" viewBox="0 0 420 18" preserveAspectRatio="none" aria-hidden="true"><path class="brush" d="M3 12C70 5 160 4 230 8s130 6 187-2" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg>'
 ART='''<svg class="window-art" viewBox="0 0 240 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 30c40 10 80 8 120 30s70 50 95 52"/><path d="M70 41c-6-14 2-24 10-26M110 52c4-16 16-22 26-20M150 70c-2 14 6 24 16 26M190 92c10-10 22-10 30-4"/><g fill="#F2A900" fill-opacity=".9" stroke="#5B3A8C"><circle cx="80" cy="15" r="5"/><circle cx="92" cy="22" r="4"/><circle cx="136" cy="32" r="5"/><circle cx="146" cy="42" r="3.5"/><circle cx="166" cy="96" r="5"/><circle cx="220" cy="88" r="4.5"/><circle cx="208" cy="80" r="3"/></g><g fill="#B79AE0" fill-opacity=".55"><circle cx="58" cy="28" r="4"/><circle cx="120" cy="60" r="4"/><circle cx="178" cy="100" r="3.5"/></g></svg>'''
-def need(lang,txt): return f'<span class="need">[{T[lang]["need"]}: {txt}]</span>'
+HEDGE=False
+def need(lang,txt):
+  if HEDGE: return 'Call to confirm.' if lang=='en' else 'Llame para confirmar.'
+  return f'<span class="need">[{T[lang]["need"]}: {txt}]</span>'
 def url(page,lang,depth): return ('../'*depth)+lang+'/'+SLUG[page][lang]
 def callbtn(lang,cls='btn btn-accent',where='x',dyn=True):
   d=' data-dyn-call' if dyn else ''
@@ -113,8 +116,7 @@ def page(lang,key,title,desc,body,crumb=None):
 <meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{BASE}assets/img/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Boyle Heights Dental Care storefront at 2206 E Cesar E Chavez Ave">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}"><meta name="twitter:image" content="{BASE}assets/img/og.jpg">
 <link rel="icon" href="{r}favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="{r}assets/img/icon-32.png"><link rel="apple-touch-icon" href="{r}assets/img/icon-180.png"><link rel="manifest" href="{r}site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap">
+<link rel="preload" href="{r}assets/fonts/bricolage-600-800-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="{r}assets/fonts/atkinson-400-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="{r}assets/fonts/atkinson-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 {'<link rel="preload" as="image" type="image/avif" imagesrcset="'+r+'assets/img/h5-1440.avif 1440w, '+r+'assets/img/h5-2880.avif 2880w" imagesizes="100vw" media="(min-width:701px)" fetchpriority="high"><link rel="preload" as="image" type="image/avif" imagesrcset="'+r+'assets/img/h5m-800.avif 800w, '+r+'assets/img/h5m-1200.avif 1200w" imagesizes="100vw" media="(max-width:700px)" fetchpriority="high">' if key=='home' else ''}<link rel="stylesheet" href="{r}assets/css/site.css">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">{json.dumps(ld if len(ld)>1 else ld[0],ensure_ascii=False)}</script>
@@ -275,7 +277,10 @@ def contact(lang):
    "Call (323) 265-3680 or get directions to our Boyle Heights family dentist. English and Spanish spoken. 2206 E Cesar E Chavez Ave." if en else "Llame al (323) 265-3680 o vea cómo llegar con su dentista familiar en Boyle Heights. Hablamos español e inglés.",body,"Contact" if en else "Contacto")
 urls=[]
 for l in ('en','es'):
-  for f in (home,services,newp,hoursp,contact): urls.append((f(l),l))
+  for f in (home,services,newp,hoursp,contact):
+    HEDGE=(f is newp) or (f is hoursp and l=='en')
+    urls.append((f(l),l))
+  HEDGE=False
 # sitemap with hreflang
 keys=['home','services','new','hours','contact']
 sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
