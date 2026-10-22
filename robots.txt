@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://answerfirstai-ai.github.io/boyle-heights-dental-care/sitemap.xml
