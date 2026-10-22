@@ -311,3 +311,4 @@ p{margin:0 0 1em;max-width:62ch}
 }
 @media (prefers-reduced-motion:reduce){.hero-media img,.win-hero::after{animation:none}.win-hero::after{display:none}}
 html,body{overflow-x:clip}
+@media (max-width:700px){.hero-media{height:70vw}.hero-label{top:calc(70vw - 30px)}.win-hero .kicker{display:none}.win-hero .window{padding-top:1rem}.win-hero .lede{margin:.7rem 0 1.1rem;font-size:1.05rem}.win-hero h1{font-size:10vw}}

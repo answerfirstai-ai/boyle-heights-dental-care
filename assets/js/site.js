@@ -19,7 +19,7 @@ else{var k,i,lbl;
  status=es?'Cerrado ahora':'Closed now';
  next=(es?'Abrimos '+lbl+' a la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]):'We open '+lbl+' at '+t(H[k][0]))+(es?'':'.')+(n.d===4?(es?' Los jueves cerramos.':' Closed Thursdays.'):'');
  cta=es?'Llame '+lbl+' a la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]):'Call '+lbl+' at '+t(H[k][0]);
- sub=es?'Estamos cerrados ahora. Llámenos '+lbl+' a partir de la'+(H[k][0]>=780?' ':'s ')+t(H[k][0])+'.':'We’re closed right now. Give us a call '+lbl+' from '+t(H[k][0])+'.';}
+ sub=es?'Estamos cerrados ahora. Llámenos '+lbl+' a partir de la'+(H[k][0]>=780?' ':'s ')+t(H[k][0]).replace(/\.$/,'')+'.':'We’re closed right now. Give us a call '+lbl+' from '+t(H[k][0])+'.';}
 d.querySelectorAll('[data-status]').forEach(function(s){s.textContent=status;s.classList.add(open?'open':'closed')});
 d.querySelectorAll('[data-next]').forEach(function(s){s.textContent=next});
 var di=(n.d+6)%7;d.querySelectorAll('[data-day="'+di+'"]').forEach(function(l){l.classList.add('is-today');l.setAttribute('aria-current','date')});
@@ -33,7 +33,7 @@ d.addEventListener('click',function(e){var a=e.target.closest('[data-track]');if
 // --- language: remember, navigate instantly
 d.querySelectorAll('[data-lang-switch]').forEach(function(a){a.addEventListener('click',function(){var to=a.dataset.langSwitch;try{localStorage.setItem('bhdc-lang',to)}catch(_){}track('lang-'+to)})});
 // below-fold reveal marking (above-fold content is never hidden)
-var vh=innerHeight;if(!reduce)d.querySelectorAll('[data-reveal]').forEach(function(el){if(el.getBoundingClientRect().top>vh*0.95)el.classList.add('pre')});
+var vh=innerHeight;if(!reduce)d.querySelectorAll('[data-reveal]').forEach(function(el){if(el.getBoundingClientRect().top>vh)el.classList.add('pre')});
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});d.querySelectorAll('[data-reveal].pre').forEach(function(el){io.observe(el)})}else d.querySelectorAll('.pre').forEach(function(el){el.classList.remove('pre')});
 // --- GSAP
 function go(){
