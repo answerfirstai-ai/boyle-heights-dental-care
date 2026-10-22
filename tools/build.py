@@ -278,7 +278,7 @@ def contact(lang):
 urls=[]
 for l in ('en','es'):
   for f in (home,services,newp,hoursp,contact):
-    HEDGE=(f is newp) or (f is hoursp and l=='en')
+    HEDGE=(f is newp) or (f is hoursp)
     urls.append((f(l),l))
   HEDGE=False
 # sitemap with hreflang
