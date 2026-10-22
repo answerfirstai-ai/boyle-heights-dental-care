@@ -41,10 +41,8 @@ function go(){
  var g=gsap,sign=d.querySelector('[data-sign]'),tl=g.timeline({defaults:{ease:'power2.out'}});
  if(sign){tl.fromTo(sign.querySelectorAll('.w'),{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',duration:.18,stagger:.02},0);
   var br=sign.querySelector('.brush');if(br)tl.fromTo(br,{strokeDashoffset:440},{strokeDashoffset:0,duration:.3},0.05);}
- var card=d.querySelector('.hero [data-hours-card]');if(card)tl.from(card,{y:-12,duration:.3},0);
  if(window.ScrollTrigger){g.registerPlugin(ScrollTrigger);
   var art=d.querySelector('.hero>.window-art');if(art)g.to(art,{yPercent:30,rotate:4,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-  d.querySelectorAll('[data-push] img').forEach(function(im){g.fromTo(im,{scale:1.14,yPercent:-4},{scale:1,yPercent:4,ease:'none',scrollTrigger:{trigger:im.closest('section'),start:'top bottom',end:'bottom top',scrub:true}})});
  }
 }
 if(document.readyState==='complete')go();else addEventListener('load',go);
